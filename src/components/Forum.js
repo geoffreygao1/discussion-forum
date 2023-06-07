@@ -6,17 +6,21 @@ function Forum(props) {
   return (
     <>
       <hr />
-      {props.postList.map((post) =>
-        <Post
-          postAuthor={post.postAuthor}
-          postText={post.postText}
-          timeStamp={post.timeStamp}
-          voteCounter={post.voteCounter}
-          upVoteClicked={props.upVotePost}
-          downVoteClicked={props.downVotePost}
-          id={post.id}
-          key={post.id} />
-      )}
+      {Object.values(props.postList)
+        .sort(function (a, b) {
+          return b.voteCounter - a.voteCounter
+        })
+        .map((post) =>
+          <Post
+            postAuthor={post.postAuthor}
+            postText={post.postText}
+            timeStamp={post.timeStamp}
+            voteCounter={post.voteCounter}
+            upVoteClicked={props.upVotePost}
+            downVoteClicked={props.downVotePost}
+            id={post.id}
+            key={post.id} />
+        )}
     </>
   );
 }

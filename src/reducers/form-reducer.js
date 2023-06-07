@@ -15,14 +15,18 @@ const formReducer = (state = {}, action) => {
       // given an post id
       // increment the post id by +1
       // return the object
-      let upvotedPost = { ...state[id], voteCounter: state[id].voteCounter + 1 };
-      return Object.assign({}, state, upvotedPost);
+      const upvotedPost = { ...state[id], voteCounter: state[id].voteCounter + 1 };
+      return Object.assign({}, state, {
+        [id]: upvotedPost
+      });
     case 'DOWNVOTE':
       // given an post id
       // increment the post id by -1
       // return the object
-      let downvotedPost = { ...state[id], voteCounter: state[id].voteCounter - 1 };
-      return Object.assign({}, state, downvotedPost);
+      const downvotedPost = { ...state[id], voteCounter: state[id].voteCounter - 1 };
+      return Object.assign({}, state, {
+        [id]: downvotedPost
+      });
     default:
       return state;
   }

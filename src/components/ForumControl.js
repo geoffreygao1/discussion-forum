@@ -31,32 +31,55 @@ class ForumControl extends React.Component {
 
   handleUpVoteClick = (postId) => {
     const { dispatch } = this.props;
-    const { id } = postId;
     const action = {
       type: 'UPVOTE',
-      id: id,
+      id: postId
+    }
+    dispatch(action);
+  }
+
+  handleDownVoteClick = (postId) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: 'DOWNVOTE',
+      id: postId
     }
     dispatch(action);
   }
 
   //Render
   render() {
-    currentlyVisibleState = <NewPostForm onNewPostCreation={this.handleAddingNewPost} />;
+    let submissionForm = null;
+    let displayPostList = null;
+    let buttonText = null;
+    submissionForm = <NewPostForm onNewPostCreation={this.handleAddingNewPost} />;
+    displayPostList = <Forum upVotePost={this.handleUpVoteClick} downVotePost={this.handleDownVoteClick} postList={this.props.postList} />
     buttonText = "Return to Ticket List";
 
     return (
       <React.Fragment>
-        {currentlyVisibleState}
-        <button onClick={this.handleClick}>{buttonText}</button>
+        <h1>Submit a Post:</h1>
+        {submissionForm}
+        <hr></hr>
+        <h1>Post List:</h1>
+        {displayPostList}
       </React.Fragment>
     );
   }
 }
 
 ForumControl.propTypes = {
-
+  propList: PropTypes.object
 };
 
 //mapStateToProps
+
+const mapStateToProps = state => {
+  return {
+    postList: state.postList
+  }
+}
+
+ForumControl = connect(mapStateToProps)(ForumControl);
 
 export default ForumControl;

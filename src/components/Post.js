@@ -7,6 +7,7 @@ function Post(props) {
       <div>
         <h3>{props.postAuthor}</h3>
         <p>{props.postText}</p>
+        <p><em>{Date(props.timeStamp)}</em></p>
         <button onClick={() => props.upVoteClicked(props.id)}>Upvote</button>
         <button onClick={() => props.downVoteClicked(props.id)}>Downvote</button>
         <hr />
